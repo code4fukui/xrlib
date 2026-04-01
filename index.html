@@ -1,0 +1,28 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><link rel="icon" href="data:">
+<title>hand measure</title></head><body>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://code4fukui.github.io/three.js/build/three.module.js",
+    "three/addons/": "https://code4fukui.github.io/three.js/examples/jsm/",
+    "three/nodes": "https://code4fukui.github.io/three.js/examples/jsm/nodes/Nodes.js"
+  }
+}
+</script>
+<script type="module">
+import { THREE, scene, camera, renderer } from "https://code4fukui.github.io/egxr.js/egxr.js";
+import { HandMeasure } from "./HandMeasure.js";
+import { showHand } from "./showHand.js";
+
+//showHand(renderer, scene); // 手を表示
+showHand(renderer, scene, false); // 手を非表示
+new HandMeasure(THREE, renderer, scene, camera); // 人差し指間で計測
+
+const clock = new THREE.Clock();
+renderer.setAnimationLoop(() => {
+  const delta = clock.getDelta();
+  renderer.updates.forEach(i => i.update(delta));
+	renderer.render(scene, camera);
+});
+</script>
+</body></html>
